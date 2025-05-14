@@ -28,22 +28,23 @@
         android:layout_height="0dp"
         android:layout_marginStart="88dp"
         android:layout_marginEnd="88dp"
-        android:layout_marginBottom="175dp"
+        android:layout_marginBottom="100dp"
         android:background="#FFFDD0"
         android:backgroundTint="#FFFDD0"
-        android:text="Welcome and thanks for using my app :) This app focuses on garnering your knowledge on cars. The questions will focus on both cars and the mechanical aspect behind it."
+        android:text="Welcome and thanks for using my app :) This app focuses on garnering your knowledge on history around the globe. There will be a focus on historical figures and their achievments."
         android:textAlignment="center"
         android:textColor="#0E0E0E"
         android:textSize="16sp"
         android:textStyle="bold|italic"
         app:layout_constraintBottom_toTopOf="@+id/StartButton"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/NameView"
-        android:layout_width="210dp"
-        android:layout_height="0dp"
+        android:layout_width="223dp"
+        android:layout_height="54dp"
         android:layout_marginStart="100dp"
         android:layout_marginTop="72dp"
         android:layout_marginEnd="101dp"
@@ -58,6 +59,24 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/GreetingView"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/ResultsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginStart="159dp"
+        android:layout_marginTop="49dp"
+        android:layout_marginEnd="162dp"
+        android:layout_marginBottom="72dp"
+        android:backgroundTint="#FFFDD0"
+        android:text="Results"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/StartButton" />
 </androidx.constraintlayout.widget.ConstraintLayout>
