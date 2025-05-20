@@ -8,4 +8,19 @@
     android:background="@drawable/download"
     tools:context=".MainActivity3">
 
+    <TextView
+        android:id="@+id/FinalScoreView"
+        android:layout_width="173dp"
+        android:layout_height="70dp"
+        android:text="TextView"
+        tools:layout_editor_absoluteX="119dp"
+        tools:layout_editor_absoluteY="92dp" />
+
+    <Button
+        android:id="@+id/exitbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button"
+        tools:layout_editor_absoluteX="149dp"
+        tools:layout_editor_absoluteY="363dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
