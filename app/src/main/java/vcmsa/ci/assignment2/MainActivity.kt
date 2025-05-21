@@ -9,6 +9,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
 class MainActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -28,7 +29,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(toStartButton)
         }
         resultsButton.setOnClickListener {
-            val toResultsButton = Intent(this, ResultsActivity::class.java)
+            val toResultsButton = Intent(this, MainActivity3::class.java)
             startActivity(toResultsButton)
         }
 
