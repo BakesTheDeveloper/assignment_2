@@ -3,8 +3,11 @@ package vcmsa.ci.assignment2
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.os.Parcel
 import android.os.Parcelable
+import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
@@ -21,6 +24,7 @@ class MainActivity2() : AppCompatActivity(), Parcelable {
 
     var currentIndex = 0
     var score = 0
+    private var answered = false
 
     private lateinit var QuestionView: TextView
     private lateinit var FeedbackView: TextView
@@ -69,25 +73,54 @@ class MainActivity2() : AppCompatActivity(), Parcelable {
         updateQuestion()
 
         Falsebutton.setOnClickListener {
-            checkAnswer(false)
+            if (!answered) {
+                answered = true
+                checkAnswer(false)
+                
+                // If this is the last question, automatically go to results after a delay
+                if (currentIndex == questions.size - 1) {
+                    Nextbutton.text = "See Results"
+                    Nextbutton.visibility = View.VISIBLE
+                } else {
+                    // Enable the Next button after answering
+                    Nextbutton.visibility = View.VISIBLE
+                }
+            }
         }
         
         Truebutton.setOnClickListener {
-            checkAnswer(true)
+            if (!answered) {
+                answered = true
+                checkAnswer(true)
+                
+                // If this is the last question, automatically go to results after a delay
+                if (currentIndex == questions.size - 1) {
+                    Nextbutton.text = "See Results"
+                    Nextbutton.visibility = View.VISIBLE
+                } else {
+                    // Enable the Next button after answering
+                    Nextbutton.visibility = View.VISIBLE
+                }
+            }
         }
         
         Nextbutton.setOnClickListener {
-            currentIndex++
-            if (currentIndex < questions.size) {
-                updateQuestion()
-            } else {
-                val intent = Intent(this, MainActivity3::class.java)
-                intent.putExtra("SCORE", score)
-                intent.putExtra("TOTAL", questions.size)
-                startActivity(intent)
-                finish()
+            if (answered) {
+                if (currentIndex == questions.size - 1) {
+                    // If this was the last question, go to results
+                    goToResults()
+                } else {
+                    // Move to next question
+                    currentIndex++
+                    updateQuestion()
+                    answered = false
+                    Nextbutton.visibility = View.INVISIBLE
+                }
             }
         }
+
+        // Initially hide the Next button until an answer is selected
+        Nextbutton.visibility = View.INVISIBLE
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -99,6 +132,15 @@ class MainActivity2() : AppCompatActivity(), Parcelable {
             )
             insets
         }
+    }
+    
+    // Function to navigate to results screen
+    private fun goToResults() {
+        val intent = Intent(this, MainActivity3::class.java)
+        intent.putExtra("SCORE", score)
+        intent.putExtra("TOTAL", questions.size)
+        startActivity(intent)
+        finish()
     }
     
     // Function to load questions from a file in assets or use default questions

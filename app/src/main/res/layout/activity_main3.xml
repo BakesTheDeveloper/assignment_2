@@ -8,6 +8,18 @@
     android:background="@drawable/download"
     tools:context=".MainActivity3">
 
+    <Button
+        android:id="@+id/backButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#FFFDD0"
+        android:text="Back"
+        android:textColor="#000000"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/resultsTitleView"
         android:layout_width="0dp"
@@ -24,7 +36,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/backButton" />
 
     <TextView
         android:id="@+id/FinalScoreView"
@@ -50,7 +62,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="64dp"
         android:backgroundTint="#FFFDD0"
-        android:text="Exit"
+        android:text="Exit App"
         android:textColor="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
