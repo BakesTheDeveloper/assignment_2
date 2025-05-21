@@ -23,15 +23,22 @@ class MainActivity : AppCompatActivity() {
         val startButton = findViewById<Button>(R.id.StartButton)
         //takes you to results
         val resultsButton = findViewById<Button>(R.id.ResultsButton)
+        //takes you to question editor
+        val editQuestionsButton = findViewById<Button>(R.id.EditQuestionsButton)
 
         startButton.setOnClickListener {
             val toStartButton = Intent(this, MainActivity2::class.java)
             startActivity(toStartButton)
         }
+        
         resultsButton.setOnClickListener {
             val toResultsButton = Intent(this, MainActivity3::class.java)
             startActivity(toResultsButton)
         }
-
+        
+        editQuestionsButton?.setOnClickListener {
+            val toEditorIntent = Intent(this, QuestionEditorActivity::class.java)
+            startActivity(toEditorIntent)
+        }
     }
 }

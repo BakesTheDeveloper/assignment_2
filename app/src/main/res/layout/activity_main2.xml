@@ -10,47 +10,73 @@
 
     <TextView
         android:id="@+id/QView"
-        android:layout_width="167dp"
-        android:layout_height="38dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="110dp"
+        android:layout_marginEnd="32dp"
         android:background="#FFFDD0"
-        android:backgroundTint="#FFFDD0"
+        android:minHeight="80dp"
+        android:padding="8dp"
         android:text="Questions"
         android:textAlignment="center"
         android:textColor="#000000"
-        android:textSize="24sp"
-        tools:layout_editor_absoluteX="122dp"
-        tools:layout_editor_absoluteY="110dp" />
-
-    <Button
-        android:id="@+id/Falsebutton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button"
-        tools:layout_editor_absoluteX="162dp"
-        tools:layout_editor_absoluteY="221dp" />
-
-    <Button
-        android:id="@+id/Truebutton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button"
-        tools:layout_editor_absoluteX="165dp"
-        tools:layout_editor_absoluteY="297dp" />
-
-    <Button
-        android:id="@+id/Nextbutton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button"
-        tools:layout_editor_absoluteX="156dp"
-        tools:layout_editor_absoluteY="405dp" />
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/feedbackView"
-        android:layout_width="158dp"
-        android:layout_height="37dp"
-        android:text="TextView"
-        tools:layout_editor_absoluteX="129dp"
-        tools:layout_editor_absoluteY="159dp" />
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        android:background="#FFFDD0"
+        android:minHeight="40dp"
+        android:padding="8dp"
+        android:text="Feedback will appear here"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/QView" />
+
+    <Button
+        android:id="@+id/Falsebutton"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:backgroundTint="#FFFDD0"
+        android:text="False"
+        android:textColor="#000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/feedbackView" />
+
+    <Button
+        android:id="@+id/Truebutton"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="#FFFDD0"
+        android:text="True"
+        android:textColor="#000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Falsebutton" />
+
+    <Button
+        android:id="@+id/Nextbutton"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:backgroundTint="#FFFDD0"
+        android:text="Next"
+        android:textColor="#000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Truebutton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

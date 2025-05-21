@@ -11,16 +11,13 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import java.io.BufferedReader
+import java.io.InputStreamReader
 
 class MainActivity2() : AppCompatActivity(), Parcelable {
-    val questions = arrayOf(
-        "Was Columbus the first european to sail to america?",
-        "Were the pyramids built by aliens?",
-        "Imperialism of the 19th century caused the concentration of power in the early 20th century?",
-        "Imperialist nations created feelings of pride among colonized people?",
-        "Nelson Mandela was president for 10+ years?"
-    )
-    val answers = booleanArrayOf(true, false, true, false, false)
+    // Questions and answers will be loaded from a file or can be updated programmatically
+    var questions = arrayOf<String>()
+    var answers = booleanArrayOf()
 
     var currentIndex = 0
     var score = 0
@@ -35,7 +32,6 @@ class MainActivity2() : AppCompatActivity(), Parcelable {
         currentIndex = parcel.readInt()
         score = parcel.readInt()
     }
-
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeInt(currentIndex)
@@ -67,14 +63,19 @@ class MainActivity2() : AppCompatActivity(), Parcelable {
         Truebutton = findViewById<Button>(R.id.Truebutton)
         Nextbutton = findViewById<Button>(R.id.Nextbutton)
 
+        // Load questions from file or use default questions
+        loadQuestions()
+        
         updateQuestion()
 
         Falsebutton.setOnClickListener {
-            check(true)
+            checkAnswer(false)
         }
+        
         Truebutton.setOnClickListener {
-            check(false)
+            checkAnswer(true)
         }
+        
         Nextbutton.setOnClickListener {
             currentIndex++
             if (currentIndex < questions.size) {
@@ -86,30 +87,91 @@ class MainActivity2() : AppCompatActivity(), Parcelable {
                 startActivity(intent)
                 finish()
             }
-            fun updateQuestion() {
-                QuestionView.text = questions[currentIndex]
-                FeedbackView.text = ""
-            }
-
-            fun checkAnswer(userAnswer: Boolean) {
-                val correct = answers[currentIndex]
-                if (userAnswer == correct) {
-                    FeedbackView.text = "Well Done! Thats Right!"
-                    score++
-                } else {
-                    FeedbackView.text = "Sorry :( Thats Wrong."
-                }
-
-                ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-                    val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-                    v.setPadding(
-                        systemBars.left,
-                        systemBars.top,
-                        systemBars.right,
-                        systemBars.bottom
-                    )
-                    insets
-                }
-            }
         }
-    }}
+
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(
+                systemBars.left,
+                systemBars.top,
+                systemBars.right,
+                systemBars.bottom
+            )
+            insets
+        }
+    }
+    
+    // Function to load questions from a file in assets or use default questions
+    private fun loadQuestions() {
+        try {
+            val inputStream = assets.open("questions.txt")
+            val reader = BufferedReader(InputStreamReader(inputStream))
+            val questionsList = mutableListOf<String>()
+            val answersList = mutableListOf<Boolean>()
+            
+            var line: String?
+            while (reader.readLine().also { line = it } != null) {
+                line?.let {
+                    val parts = it.split("|")
+                    if (parts.size >= 2) {
+                        questionsList.add(parts[0].trim())
+                        answersList.add(parts[1].trim().equals("true", ignoreCase = true))
+                    }
+                }
+            }
+            
+            if (questionsList.isNotEmpty()) {
+                questions = questionsList.toTypedArray()
+                answers = answersList.toBooleanArray()
+            } else {
+                // Use default questions if file is empty
+                setDefaultQuestions()
+            }
+            
+            reader.close()
+        } catch (e: Exception) {
+            // If there's an error reading the file, use default questions
+            setDefaultQuestions()
+        }
+    }
+    
+    // Set default questions if file loading fails
+    private fun setDefaultQuestions() {
+        questions = arrayOf(
+            "Was Columbus the first european to sail to america?",
+            "Were the pyramids built by aliens?",
+            "Imperialism of the 19th century caused the concentration of power in the early 20th century?",
+            "Imperialist nations created feelings of pride among colonized people?",
+            "Nelson Mandela was president for 10+ years?"
+        )
+        answers = booleanArrayOf(true, false, true, false, false)
+    }
+    
+    // Function to update questions programmatically
+    fun updateQuestionsAndAnswers(newQuestions: Array<String>, newAnswers: BooleanArray) {
+        if (newQuestions.size == newAnswers.size) {
+            questions = newQuestions
+            answers = newAnswers
+            currentIndex = 0
+            score = 0
+            updateQuestion()
+        }
+    }
+    
+    // Update the question displayed on screen
+    private fun updateQuestion() {
+        QuestionView.text = questions[currentIndex]
+        FeedbackView.text = ""
+    }
+
+    // Check if the user's answer is correct
+    private fun checkAnswer(userAnswer: Boolean) {
+        val correct = answers[currentIndex]
+        if (userAnswer == correct) {
+            FeedbackView.text = "Well Done! Thats Right!"
+            score++
+        } else {
+            FeedbackView.text = "Sorry :( Thats Wrong."
+        }
+    }
+}

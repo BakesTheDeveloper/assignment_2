@@ -9,18 +9,50 @@
     tools:context=".MainActivity3">
 
     <TextView
+        android:id="@+id/resultsTitleView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="32dp"
+        android:background="#FFFDD0"
+        android:padding="16dp"
+        android:text="Quiz Results"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
         android:id="@+id/FinalScoreView"
-        android:layout_width="173dp"
-        android:layout_height="70dp"
-        android:text="TextView"
-        tools:layout_editor_absoluteX="119dp"
-        tools:layout_editor_absoluteY="92dp" />
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:background="#FFFDD0"
+        android:minHeight="70dp"
+        android:padding="16dp"
+        android:text="Your Score: 0/0"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/resultsTitleView" />
 
     <Button
         android:id="@+id/exitbutton"
-        android:layout_width="wrap_content"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:text="Button"
-        tools:layout_editor_absoluteX="149dp"
-        tools:layout_editor_absoluteY="363dp" />
+        android:layout_marginBottom="64dp"
+        android:backgroundTint="#FFFDD0"
+        android:text="Exit"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
