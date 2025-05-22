@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SwitchCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
@@ -30,6 +31,26 @@ class MainActivity : AppCompatActivity() {
         val startButton = findViewById<Button>(R.id.StartButton) // Button to start the quiz
         val resultsButton = findViewById<Button>(R.id.ResultsButton) // Button to view results
         val editQuestionsButton = findViewById<Button>(R.id.EditQuestionsButton) // Button to edit questions
+        val editorToggleSwitch = findViewById<SwitchCompat>(R.id.editorToggleSwitch) // Toggle switch for editor visibility
+        
+        // Get the saved state of the toggle switch
+        val sharedPrefs = getSharedPreferences("app_preferences", MODE_PRIVATE)
+        val isEditorEnabled = sharedPrefs.getBoolean("editor_enabled", true) // Default to true
+        
+        // Set the initial state of the toggle switch
+        editorToggleSwitch.isChecked = isEditorEnabled
+        
+        // Set the initial visibility of the edit questions button
+        editQuestionsButton.visibility = if (isEditorEnabled) android.view.View.VISIBLE else android.view.View.GONE
+        
+        // Set up toggle switch listener
+        editorToggleSwitch.setOnCheckedChangeListener { _, isChecked ->
+            // Save the toggle state to SharedPreferences
+            sharedPrefs.edit().putBoolean("editor_enabled", isChecked).apply()
+            
+            // Update the visibility of the edit questions button
+            editQuestionsButton.visibility = if (isChecked) android.view.View.VISIBLE else android.view.View.GONE
+        }
 
         // Set up Start button click listener
         startButton.setOnClickListener {
