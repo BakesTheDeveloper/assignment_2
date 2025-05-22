@@ -3,8 +3,6 @@ package vcmsa.ci.assignment2
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.os.Parcel
 import android.os.Parcelable
 import android.view.View
@@ -15,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import java.io.BufferedReader
+import java.io.File
 import java.io.InputStreamReader
 
 /**
@@ -33,6 +32,9 @@ class MainActivity2() : AppCompatActivity(), Parcelable {
     
     // Flag to track if the current question has been answered
     private var answered = false
+    
+    // Filename for custom questions
+    private val CUSTOM_QUESTIONS_FILENAME = "custom_questions.txt"
 
     // UI elements
     private lateinit var QuestionView: TextView
@@ -179,9 +181,15 @@ class MainActivity2() : AppCompatActivity(), Parcelable {
     }
     
     /**
-     * Load questions from a file in assets or use default questions if file loading fails
+     * Load questions from custom file first, then from assets, or use default questions if both fail
      */
     private fun loadQuestions() {
+        // First try to load custom questions
+        if (loadCustomQuestions()) {
+            return // Successfully loaded custom questions
+        }
+        
+        // If no custom questions, try to load from assets
         try {
             // Try to open and read the questions file from assets
             val inputStream = assets.open("questions.txt")
@@ -217,6 +225,42 @@ class MainActivity2() : AppCompatActivity(), Parcelable {
             // If there's an error reading the file, use default questions
             setDefaultQuestions()
         }
+    }
+    
+    /**
+     * Load custom questions from the app's private storage
+     * @return true if custom questions were successfully loaded, false otherwise
+     */
+    private fun loadCustomQuestions(): Boolean {
+        try {
+            // Check if the custom questions file exists
+            val file = File(filesDir, CUSTOM_QUESTIONS_FILENAME)
+            if (file.exists()) {
+                val questionsList = mutableListOf<String>()
+                val answersList = mutableListOf<Boolean>()
+                
+                // Read each line from the file
+                file.bufferedReader().useLines { lines ->
+                    lines.forEach { line ->
+                        val parts = line.split("|")
+                        if (parts.size >= 2) {
+                            questionsList.add(parts[0].trim())
+                            answersList.add(parts[1].trim().equals("true", ignoreCase = true))
+                        }
+                    }
+                }
+                
+                // If questions were successfully loaded, use them
+                if (questionsList.isNotEmpty()) {
+                    questions = questionsList.toTypedArray()
+                    answers = answersList.toBooleanArray()
+                    return true
+                }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return false
     }
     
     /**
