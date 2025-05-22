@@ -61,8 +61,8 @@ class MainActivity : AppCompatActivity() {
         
         // Set up Results button click listener
         resultsButton.setOnClickListener {
-            // Navigate to the results activity (MainActivity3)
-            // Note: This will show a blank result if no quiz has been completed
+            // Navigate to the results activity (MainActivity3) without passing a new score
+            // This will display previous results only
             val toResultsButton = Intent(this, MainActivity3::class.java)
             startActivity(toResultsButton)
         }
