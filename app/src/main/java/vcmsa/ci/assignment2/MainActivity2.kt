@@ -181,15 +181,19 @@ class MainActivity2() : AppCompatActivity(), Parcelable {
     }
     
     /**
-     * Load questions from custom file first, then from assets, or use default questions if both fail
+     * Load questions based on editor toggle state
      */
     private fun loadQuestions() {
-        // First try to load custom questions
-        if (loadCustomQuestions()) {
+        // Check if editor is enabled in SharedPreferences
+        val sharedPrefs = getSharedPreferences("app_preferences", MODE_PRIVATE)
+        val isEditorEnabled = sharedPrefs.getBoolean("editor_enabled", true)
+        
+        // Only load custom questions if editor is enabled
+        if (isEditorEnabled && loadCustomQuestions()) {
             return // Successfully loaded custom questions
         }
         
-        // If no custom questions, try to load from assets
+        // If editor is disabled or no custom questions, load from assets
         try {
             // Try to open and read the questions file from assets
             val inputStream = assets.open("questions.txt")
