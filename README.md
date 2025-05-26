@@ -41,3 +41,5 @@ The application is structured using standard Android architecture components:
 - Activities for different screens
 - XML layouts for UI components
 - Kotlin for application logic
+
+- YT VIDEO: https://youtu.be/-M5pLlTBruY
