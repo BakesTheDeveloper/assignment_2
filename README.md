@@ -43,3 +43,4 @@ The application is structured using standard Android architecture components:
 - Kotlin for application logic
 
 - YT VIDEO: https://youtu.be/-M5pLlTBruY
+- GIT REPOSITORY: https://github.com/BakesTheDeveloper/assignment_2.git
